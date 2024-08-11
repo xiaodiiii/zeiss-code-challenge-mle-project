@@ -1,0 +1,11 @@
+pandas
+numpy
+jupyter
+ipykernel
+scikit-learn
+matplotlib
+pre-commit
+pylint
+boto3
+fastapi 
+uvicorn

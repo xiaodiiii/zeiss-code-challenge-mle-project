@@ -1,0 +1,19 @@
+data:
+  raw_data_path: "data/historical_sensor_data.csv"
+  preprocessed_data_path: "data/preprocessed_data.npz"
+  inference_data_path: "data/latest_sensor_data.csv"
+  prediction_output_path: "data/predictions.csv"
+  s3_bucket: ""
+  s3_key: ""
+
+
+features: ["sensor_1", "sensor_2"]
+target: ["label",]
+
+preprocessing:
+  test_size: 0.3
+  random_state: 99
+
+model:
+  model_output_path: "models/gpc_model.pkl"
+
