@@ -7,5 +7,5 @@ matplotlib
 pre-commit
 pylint
 boto3
-fastapi 
+fastapi
 uvicorn

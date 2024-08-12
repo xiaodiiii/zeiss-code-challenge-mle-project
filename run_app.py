@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+"""Run app script."""
+# -*- coding: utf-8 -*-
 # run_app.py
 import uvicorn
 

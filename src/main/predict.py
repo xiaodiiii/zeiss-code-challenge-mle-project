@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Model predict script."""
+# -*- coding: utf-8 -*-
 import logging
 
 import joblib
@@ -20,17 +22,17 @@ def load_model(model_path):
     return clf
 
 
-def preprocess_inference_data(X_inference):
+def preprocess_inference_data(x_inference):
     """Standardize the inference data."""
     logger.info("Standardizing inference data")
-    X_inference = StandardScaler().fit_transform(X_inference)
-    return X_inference
+    x_inference = StandardScaler().fit_transform(x_inference)
+    return x_inference
 
 
-def predict(clf, X_inference):
+def predict(clf, x_inference):
     """Predict labels using the trained model."""
     logger.info("Predicting labels")
-    y_pred = clf.predict_proba(X_inference)[:, 1]
+    y_pred = clf.predict_proba(x_inference)[:, 1]
     return y_pred
 
 
@@ -51,11 +53,11 @@ def main(config_path):
 
     # Load and preprocess inference data
     inference_df = load_data(config["data"]["inference_data_path"])
-    X_inference = inference_df.values
-    X_inference = preprocess_inference_data(X_inference)
+    x_inference = inference_df.values
+    x_inference = preprocess_inference_data(x_inference)
 
     # Predict labels
-    y_pred = predict(clf, X_inference)
+    y_pred = predict(clf, x_inference)
 
     # Save the predictions
     save_predictions(inference_df, y_pred, config["data"]["prediction_output_path"])

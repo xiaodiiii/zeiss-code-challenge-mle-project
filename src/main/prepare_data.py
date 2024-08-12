@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Data preparation script."""
+# -*- coding: utf-8 -*-
 import logging
 
 import numpy as np
@@ -14,25 +16,27 @@ logger = logging.getLogger(__name__)
 
 
 def preprocess_data(df, features, target):
-    """Preprocess the data: split into features and labels, then scale the features."""
-    X = df[features].values
+    """Preprocess the data: split into
+    features and labels, then scale the features.
+    """
+    x = df[features].values
     y = df[target].values
-    logger.info(f"Data shape: X={X.shape}, y={y.shape}")
+    logger.info(f"Data shape: X={x.shape}, y={y.shape}")
 
     # Standardize features
-    X = StandardScaler().fit_transform(X)
-    return X, y
+    x = StandardScaler().fit_transform(x)
+    return x, y
 
 
-def split_data(X, y, test_size, random_state):
+def split_data(x, y, test_size, random_state):
     """Split the data into training and test sets."""
-    return train_test_split(X, y, test_size=test_size, random_state=random_state)
+    return train_test_split(x, y, test_size=test_size, random_state=random_state)
 
 
-def save_preprocessed_data(X_train, X_test, y_train, y_test, output_path):
+def save_preprocessed_data(x_train, x_test, y_train, y_test, output_path):
     """Save preprocessed data to a file."""
     np.savez(
-        output_path, X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test
+        output_path, x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test
     )
     logger.info(f"Preprocessed data saved to {output_path}")
 
@@ -44,11 +48,11 @@ def main(config_path):
 
     # Load and preprocess data
     df = load_data(file_path=config["data"]["raw_data_path"])
-    X, y = preprocess_data(df, config["features"], config["target"])
+    x, y = preprocess_data(df, config["features"], config["target"])
 
     # Split data into train and test sets
-    X_train, X_test, y_train, y_test = split_data(
-        X,
+    x_train, x_test, y_train, y_test = split_data(
+        x,
         y,
         config["preprocessing"]["test_size"],
         config["preprocessing"]["random_state"],
@@ -56,7 +60,7 @@ def main(config_path):
 
     # Save the preprocessed data
     save_preprocessed_data(
-        X_train, X_test, y_train, y_test, config["data"]["preprocessed_data_path"]
+        x_train, x_test, y_train, y_test, config["data"]["preprocessed_data_path"]
     )
 
 

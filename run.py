@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Module loader."""
+# -*- coding: utf-8 -*-
 import importlib
 import sys
 

@@ -16,4 +16,3 @@ preprocessing:
 
 model:
   model_output_path: "models/gpc_model.pkl"
-

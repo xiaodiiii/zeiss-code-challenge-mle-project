@@ -1,4 +1,4 @@
-** Step 1 **
+## Step 1
 Refactoring into modularized structure that the usecase can be deployed as a microservice.
 ```bash
 ├── src
@@ -10,9 +10,10 @@ Refactoring into modularized structure that the usecase can be deployed as a mic
 ├── tests              # contains projects testing suite.
 ├── docker-compose.yml # Docker configurations.
 ├── Dockerfile         # machine instructions to setup the application and run inside Docker as a micro-service.
-├── logs.log           # log files storage.
-├── READ.md
+├── README.md
 ├── requirements.txt   # Python dependancies for installation with pip.
 ├── run_app.py         # entry point of the project for the Flask application.
 └── run.py             # entry point of the project for local usage
 ```
+## Step 2
+

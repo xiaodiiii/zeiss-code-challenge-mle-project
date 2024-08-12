@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Model training script."""
+# -*- coding: utf-8 -*-
 import logging
 import os
 
@@ -19,25 +21,25 @@ def load_preprocessed_data(file_path):
     """Load preprocessed data from a file."""
     logger.info(f"Loading preprocessed data from {file_path}")
     data = np.load(file_path)
-    X_train = data["X_train"]
-    X_test = data["X_test"]
+    x_train = data["X_train"]
+    x_test = data["X_test"]
     y_train = data["y_train"]
     y_test = data["y_test"]
-    return X_train, X_test, y_train, y_test
+    return x_train, x_test, y_train, y_test
 
 
-def train_model(X_train, y_train, kernel=None):
+def train_model(x_train, y_train, kernel=None):
     """Train the Gaussian Process Classifier model."""
     if kernel is None:
         kernel = 1.0 * RBF(1.0)
     clf = GaussianProcessClassifier(kernel)
-    clf.fit(X_train, y_train.ravel())
+    clf.fit(x_train, y_train.ravel())
     return clf
 
 
-def evaluate_model(clf, X_test, y_test):
+def evaluate_model(clf, x_test, y_test):
     """Evaluate the model on the test set."""
-    y_pred = clf.predict(X_test)
+    y_pred = clf.predict(x_test)
     score = accuracy_score(y_test, y_pred)
     logger.info(f"Model accuracy: {score}")
     return score
@@ -47,7 +49,7 @@ def save_model(clf, output_path):
     """Save the trained model to a file."""
 
     os.makedirs("models", exist_ok=True)
-    logger.info(f"Directory models is ready.")
+    logger.info("Directory models is ready.")
     joblib.dump(clf, output_path)
     logger.info(f"Model saved to {output_path}")
 
@@ -58,15 +60,15 @@ def main(config_path):
     config = load_config(config_path)
 
     # Load preprocessed data
-    X_train, X_test, y_train, y_test = load_preprocessed_data(
+    x_train, x_test, y_train, y_test = load_preprocessed_data(
         config["data"]["preprocessed_data_path"]
     )
 
     # Train the model
-    clf = train_model(X_train, y_train)
+    clf = train_model(x_train, y_train)
 
     # Evaluate the model
-    score = evaluate_model(clf, X_test, y_test)
+    evaluate_model(clf, x_test, y_test)
 
     # Save the trained model
     save_model(clf, config["model"]["model_output_path"])

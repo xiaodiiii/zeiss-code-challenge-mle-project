@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Utils of loading config file."""
+# -*- coding: utf-8 -*-
 import yaml
 
 
